@@ -1,14 +1,23 @@
 <template>
-  <div class="char">
-    {{ character.name }}<br />
-    {{ character.species }}<br />
-    {{ character.gender }}<br />
-    <!-- {{ character.episode }}<br /> -->
-    <!-- {{ character.image }}<br /> -->
-    {{ character.location }}<br />
-    {{ character.type }}<br />
-    {{ character.status }}<br />
-    <br />
+  <div>
+    <div class="char">
+      <div>
+        <img :src="character.image" alt="" />
+      </div>
+      Name: <b>{{ character.name }}</b
+      ><br />
+      Species: <b>{{ character.species }}</b
+      ><br />
+      Gender: <b>{{ character.gender }}</b
+      ><br />
+      <!-- {{ character.episode }}<br /> -->
+      Location: <b>{{ character.location.name }}</b
+      ><br />
+      <!-- {{ character.location.url }}<br /> -->
+      Status: <b>{{ character.status }}</b
+      ><br />
+      <br />
+    </div>
   </div>
 </template>
 
@@ -28,7 +37,16 @@ export default {
 <style lang="scss" scoped>
 .char {
   background-color: lightgrey;
-  margin-bottom: 20px;
   padding: 8%;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  min-height: 450px;
+  & div {
+    display: flex;
+    & img {
+      width: 100%;
+      border-radius: 10px;
+    }
+  }
 }
 </style>

@@ -26,21 +26,21 @@
 <script>
 export default {
   data: function () {
-    return {
-      activatedElem: "Characters",
-    };
+    //default menu is characters
+    return { activatedElem: "Characters" };
   },
 
   methods: {
     menuHandler(event) {
       this.activatedElem = event.target.innerHTML.replaceAll(" ", "");
+      this.$emit("myEvent", this.activatedElem);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-$main-color: rgb(19, 85, 207);
+$main-color: rgb(19, 207, 119);
 
 body {
   margin: 0;
