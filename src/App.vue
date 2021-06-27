@@ -13,6 +13,8 @@
         :nextURL="nextURL"
         :prevURL="prevURL"
         :API="API"
+        :nextDisabled="nextDisabled"
+        :prevDisabled="prevDisabled"
       />
     </div>
   </div>
@@ -33,6 +35,8 @@ export default {
       nextURL: "",
       currentURL: "",
       currentPage: 0,
+      prevDisabled: true,
+      nextDisabled: false,
     };
   },
   created: function () {
@@ -70,21 +74,34 @@ export default {
       this.getData();
     },
     pageClick(way) {
-      axios
-        .get(way)
-        .then((response) => {
-          this.characters = response.data.results;
-          this.prevURL = response.data.info.prev;
-          this.nextURL = response.data.info.next;
-          this.currentURL = response.config.url;
-        })
-        .then(() => {
-          if (this.currentURL.includes("=")) {
-            this.currentPage = this.currentURL.split("=");
-            this.currentPage = this.currentPage[this.currentPage.length - 1];
-            this.currentPage = parseInt(this.currentPage);
-          } else this.currentPage = 1;
-        });
+      if (way !== null) {
+        this.prevDisabled = false;
+        this.nextDisabled = false;
+
+        axios
+          .get(way)
+          .then((response) => {
+            this.characters = response.data.results;
+            this.prevURL = response.data.info.prev;
+            this.nextURL = response.data.info.next;
+            this.currentURL = response.config.url;
+          })
+          .then(() => {
+            if (this.currentURL.includes("=")) {
+              //current page
+              this.currentPage = this.currentURL.split("=");
+              this.currentPage = this.currentPage[this.currentPage.length - 1];
+              this.currentPage = parseInt(this.currentPage);
+              //pagination buttons disabling
+              if (this.currentPage === 1) {
+                this.prevDisabled = true;
+              }
+              if (this.currentPage === this.pages) {
+                this.nextDisabled = true;
+              }
+            }
+          });
+      }
     },
   },
 };

@@ -10,7 +10,10 @@
       ><br />
       Gender: <b>{{ character.gender }}</b
       ><br />
-      <!-- {{ character.episode }}<br /> -->
+      Episodes:
+      <span v-for="(episode, index) of character.episode" :key="index">
+        <a :href="episode">{{ index }}</a></span
+      ><br />
       Location: <b>{{ character.location.name }}</b
       ><br />
       <!-- {{ character.location.url }}<br /> -->
@@ -36,16 +39,22 @@ export default {
 
 <style lang="scss" scoped>
 .char {
+  line-height: 25px;
   background-color: lightgrey;
   padding: 8%;
   margin-bottom: 20px;
-  border-radius: 20px;
-  min-height: 450px;
+  border-radius: 15px;
+  min-height: 550px;
+  & span {
+    display: inline-block;
+    padding-right: 10px;
+  }
   & div {
     display: flex;
     & img {
       width: 100%;
       border-radius: 10px;
+      margin-bottom: 10px;
     }
   }
 }

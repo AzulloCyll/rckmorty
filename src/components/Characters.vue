@@ -2,8 +2,12 @@
   <div>
     <div class="pagination">
       <span>Pages: {{ currentPage }}/{{ pages }}</span>
-      <button type="button" @click="prevPageClick()">Prev</button>
-      <button type="button" @click="nextPageClick()">Next</button>
+      <button type="button" @click="prevPageClick()" :disabled="prevDisabled">
+        Prev
+      </button>
+      <button type="button" @click="nextPageClick()" :disabled="nextDisabled">
+        Next
+      </button>
     </div>
     <div class="char_wrapper" v-for="item in characters" :key="item.id">
       <Character :character="item" />
@@ -19,6 +23,8 @@ export default {
     currentPage: { type: Number },
     prevURL: { type: String },
     nextURL: { type: String },
+    prevDisabled: { type: Boolean },
+    nextDisabled: { type: Boolean },
   },
   data: function () {
     return {};
