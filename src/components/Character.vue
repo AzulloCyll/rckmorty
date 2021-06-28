@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="char">
+    <div class="character">
       <div>
         <img :src="character.image" alt="" />
       </div>
@@ -11,15 +11,15 @@
       Gender: <b>{{ character.gender }}</b
       ><br />
       Episodes:
-      <span v-for="(episode, index) of character.episode" :key="index">
-        <a :href="episode">{{ index }}</a></span
+      <b
+        ><span v-for="episode of character.episode" :key="episode">
+          <a :href="episode">{{ episode.split("/")[5] }}</a></span
+        ></b
       ><br />
       Location: <b>{{ character.location.name }}</b
       ><br />
-      <!-- {{ character.location.url }}<br /> -->
       Status: <b>{{ character.status }}</b
       ><br />
-      <br />
     </div>
   </div>
 </template>
@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.char {
+.character {
   line-height: 25px;
   background-color: lightgrey;
   padding: 8%;
@@ -48,6 +48,9 @@ export default {
   & span {
     display: inline-block;
     padding-right: 10px;
+    a {
+      color: Black;
+    }
   }
   & div {
     display: flex;

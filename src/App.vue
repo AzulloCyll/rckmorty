@@ -2,20 +2,44 @@
   <div id="app">
     <div class="wrapper">
       <Nav @myEvent="activeElemHandler($event)" />
+
       <hr />
-      <Characters
+      <Pagination
         @nextPage="pageClick(nextURL)"
         @prevPage="pageClick(prevURL)"
-        class="chars"
-        :characters="characters"
         :pages="pages"
         :currentPage="currentPage"
         :nextURL="nextURL"
         :prevURL="prevURL"
-        :API="API"
         :nextDisabled="nextDisabled"
         :prevDisabled="prevDisabled"
       />
+      <hr />
+
+      <Characters
+        v-if="activeElem === 'character'"
+        class="characters"
+        :characters="characters"
+      />
+
+      <Locations
+        v-if="activeElem === 'location'"
+        class="locations"
+        :locations="locations"
+      />
+
+      <hr />
+      <Pagination
+        @nextPage="pageClick(nextURL)"
+        @prevPage="pageClick(prevURL)"
+        :pages="pages"
+        :currentPage="currentPage"
+        :nextURL="nextURL"
+        :prevURL="prevURL"
+        :nextDisabled="nextDisabled"
+        :prevDisabled="prevDisabled"
+      />
+      <hr />
     </div>
   </div>
 </template>
@@ -30,6 +54,8 @@ export default {
       API: "https://rickandmortyapi.com/api/",
       activeElem: "character",
       characters: [],
+      locations: [],
+      episodes: [],
       pages: 0,
       prevURL: "",
       nextURL: "",
@@ -47,6 +73,16 @@ export default {
     getCharacters: function () {
       axios.get(this.API + this.activeElem).then((response) => {
         this.characters = response.data.results;
+      });
+    },
+    getLocations: function () {
+      axios.get(this.API + this.activeElem).then((response) => {
+        this.locations = response.data.results;
+      });
+    },
+    getEpisodes: function () {
+      axios.get(this.API + this.activeElem).then((response) => {
+        this.episodes = response.data.results;
       });
     },
     getData() {
@@ -70,8 +106,21 @@ export default {
     activeElemHandler(event) {
       event = event.toLowerCase().slice(0, -1);
       this.activeElem = event;
-      this.getCharacters();
-      this.getData();
+      console.log(event);
+      switch (event) {
+        case "character":
+          this.getCharacters();
+          this.getData();
+          break;
+        case "location":
+          this.getLocations();
+          this.getData();
+          break;
+        case "episode":
+          this.getEpisodes();
+          this.getData();
+          break;
+      }
     },
     pageClick(way) {
       if (way !== null) {
@@ -81,7 +130,15 @@ export default {
         axios
           .get(way)
           .then((response) => {
-            this.characters = response.data.results;
+            if (this.activeElem === "character") {
+              this.characters = response.data.results;
+            }
+            if (this.activeElem === "location") {
+              this.locations = response.data.results;
+            }
+            if (this.activeElem === "episode") {
+              this.locations = response.data.results;
+            }
             this.prevURL = response.data.info.prev;
             this.nextURL = response.data.info.next;
             this.currentURL = response.config.url;
@@ -117,7 +174,7 @@ body {
   font-family: "Open sans", sans-serif;
   margin: 0 auto;
   max-width: 1280px;
-  .chars {
+  .characters {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
