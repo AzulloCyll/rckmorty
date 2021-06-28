@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="character_wrapper" v-for="item in characters" :key="item.id">
-      <Character :character="item" />
+    <div class="character_wrapper" v-for="item in items" :key="item.id">
+      <Character :item="item" />
     </div>
   </div>
 </template>
@@ -9,7 +9,7 @@
 <script>
 export default {
   props: {
-    characters: {},
+    items: {},
   },
 };
 </script>
