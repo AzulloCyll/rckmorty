@@ -1,18 +1,20 @@
 <template>
   <div id="app">
     <div class="wrapper">
-      <Nav @myEvent="activeElemHandler($event)" />
+      <Nav />
 
       <hr />
       <Pagination
         @nextPage="pageClick(nextURL)"
         @prevPage="pageClick(prevURL)"
+        @myEvent="getData()"
         :pages="pages"
         :currentPage="currentPage"
         :nextURL="nextURL"
         :prevURL="prevURL"
         :nextDisabled="nextDisabled"
         :prevDisabled="prevDisabled"
+        :API="API"
       />
       <hr />
 

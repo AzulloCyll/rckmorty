@@ -1,20 +1,23 @@
 <template>
   <nav class="nav">
     <ul class>
-      <li
-        @click="$router.push('/character')"
-        :class="{ active: $route.path === '/character' }"
-      >
-        Characters
+      <li>
+        <router-link to="/character">Characters</router-link>
       </li>
       <li
-        @click="$router.push('/location')"
+        @click="
+          $router.push('/location');
+          handler()
+        "
         :class="{ active: $route.path === '/location' }"
       >
         Locations
       </li>
       <li
-        @click="$router.push('/episode')"
+        @click="
+          $router.push('/episode');
+          
+        "
         :class="{ active: $route.path === '/episode' }"
       >
         Episodes
@@ -24,7 +27,17 @@
 </template>
 
 <script>
-export default {};
+
+export default {
+  data() {
+    return {}
+  },
+  methods: {
+    handler() {
+      this.$emit('myEvent')
+    }
+  },
+ };
 </script>
 
 <style lang="scss" scoped>
@@ -44,7 +57,11 @@ body {
     display: inline-block;
     margin-left: 50px;
     cursor: pointer;
-    &.active {
+    & a {
+      color: black;
+      text-decoration: none;
+    }
+    .router-link-exact-active {
       color: $main-color;
       border-bottom: 1px solid $main-color;
     }

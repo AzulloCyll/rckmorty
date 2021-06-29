@@ -29,11 +29,6 @@ export default {
   props: {
     item: { type: Object },
   },
-
-  data: function () {
-    return {};
-  },
-  methods: {},
 };
 </script>
 
@@ -49,7 +44,7 @@ export default {
     display: inline-block;
     padding-right: 10px;
     a {
-      color: Black;
+      color: black;
     }
   }
   & div {
