@@ -1,13 +1,42 @@
 <template>
   <div id="app">
     <div class="wrapper">
-      <Nav />
+      <nav class="nav">
+        <ul class>
+          <li
+            @click="
+              $router.push('/character').catch((err) => {}); //łapie błąd, żeby się nie pokazywał :D
+              menuHandler();
+            "
+            :class="{ active: $route.path === '/character' }"
+          >
+            Characters
+          </li>
+          <li
+            @click="
+              $router.push('/location').catch((err) => {});
+              menuHandler();
+            "
+            :class="{ active: $route.path === '/location' }"
+          >
+            Locations
+          </li>
+          <li
+            @click="
+              $router.push('/episode').catch((err) => {});
+              menuHandler();
+            "
+            :class="{ active: $route.path === '/episode' }"
+          >
+            Episodes
+          </li>
+        </ul>
+      </nav>
 
       <hr />
       <Pagination
         @nextPage="pageClick(nextURL)"
         @prevPage="pageClick(prevURL)"
-        @myEvent="getData()"
         :pages="pages"
         :currentPage="currentPage"
         :nextURL="nextURL"
@@ -18,7 +47,7 @@
       />
       <hr />
 
-      <router-view class="items" :items="items"></router-view>
+      <router-view v-if="loading" class="items" :items="items"></router-view>
     </div>
   </div>
 </template>
@@ -30,7 +59,8 @@ export default {
   name: "App",
   data: () => {
     return {
-      API: "https://rickandmortyapi.com/api/character",
+      APIRoot: "https://rickandmortyapi.com/api",
+      API: "https://rickandmortyapi.com/api/character", //default
       items: [],
       pages: 0,
       prevURL: "",
@@ -39,13 +69,23 @@ export default {
       currentPage: 0,
       prevDisabled: true,
       nextDisabled: false,
+      loading: false,
     };
   },
   created: function () {
     this.getData();
   },
+
   methods: {
+    menuHandler() {
+      if (window.location.pathname === this.$route.path) {
+        this.API = this.APIRoot;
+        this.API += this.$route.path;
+        this.getData();
+      }
+    },
     getData() {
+      this.loading = false;
       axios
         .get(this.API)
         .then((response) => {
@@ -54,6 +94,7 @@ export default {
           this.prevURL = response.data.info.prev;
           this.nextURL = response.data.info.next;
           this.currentURL = response.config.url;
+          this.loading = true;
         })
         //do currentPage
         .then(() => {
@@ -65,6 +106,7 @@ export default {
         });
     },
     pageClick(way) {
+      this.loading = false;
       if (way !== null) {
         this.prevDisabled = false;
         this.nextDisabled = false;
@@ -75,6 +117,7 @@ export default {
             this.prevURL = response.data.info.prev;
             this.nextURL = response.data.info.next;
             this.currentURL = response.config.url;
+            this.loading = true;
           })
           .then(() => {
             if (this.currentURL.includes("=")) {
@@ -98,6 +141,8 @@ export default {
 </script>
 
 <style lang="scss">
+$main-color: rgb(19, 207, 119);
+
 body {
   margin: 0px;
   padding: 0;
@@ -111,6 +156,23 @@ body {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+  }
+}
+
+.nav {
+  font-weight: bold;
+  display: block;
+  width: 100%;
+  padding-top: 5px;
+  text-align: right;
+  & li {
+    display: inline-block;
+    margin-left: 50px;
+    cursor: pointer;
+    &.active {
+      color: $main-color;
+      border-bottom: 1px solid $main-color;
+    }
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="location_wrapper" v-for="item in items" :key="item.id">
-      <Location :item="item" />
+    <div class="episode_wrapper" v-for="item in items" :key="item.id">
+      <Episode :item="item" />
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.location_wrapper {
+.episode_wrapper {
   width: 100%;
 }
 </style>
