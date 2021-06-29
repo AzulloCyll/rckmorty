@@ -2,20 +2,20 @@
   <nav class="nav">
     <ul class>
       <li
-        @click="menuHandler($event)"
-        :class="{ active: activatedElem === 'Characters' }"
+        @click="$router.push('/character')"
+        :class="{ active: $route.path === '/character' }"
       >
         Characters
       </li>
       <li
-        @click="menuHandler($event)"
-        :class="{ active: activatedElem === 'Locations' }"
+        @click="$router.push('/location')"
+        :class="{ active: $route.path === '/location' }"
       >
         Locations
       </li>
       <li
-        @click="menuHandler($event)"
-        :class="{ active: activatedElem === 'Episodes' }"
+        @click="$router.push('/episode')"
+        :class="{ active: $route.path === '/episode' }"
       >
         Episodes
       </li>
@@ -24,19 +24,7 @@
 </template>
 
 <script>
-export default {
-  data: function () {
-    //default menu is characters
-    return { activatedElem: "Characters" };
-  },
-
-  methods: {
-    menuHandler(event) {
-      this.activatedElem = event.target.innerHTML.replaceAll(" ", "");
-      this.$emit("myEvent", this.activatedElem);
-    },
-  },
-};
+export default {};
 </script>
 
 <style lang="scss" scoped>

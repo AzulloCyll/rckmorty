@@ -2,23 +2,23 @@
   <div>
     <div class="character">
       <div>
-        <img :src="character.image" alt="" />
+        <img :src="item.image" alt="" />
       </div>
-      Name: <b>{{ character.name }}</b
+      Name: <b>{{ item.name }}</b
       ><br />
-      Species: <b>{{ character.species }}</b
+      Species: <b>{{ item.species }}</b
       ><br />
-      Gender: <b>{{ character.gender }}</b
+      Gender: <b>{{ item.gender }}</b
       ><br />
       Episodes:
       <b
-        ><span v-for="episode of character.episode" :key="episode">
+        ><span v-for="episode of item.episode" :key="episode">
           <a :href="episode">{{ episode.split("/")[5] }}</a></span
         ></b
       ><br />
-      Location: <b>{{ character.location.name }}</b
+      Location: <b>{{ item.location.name }}</b
       ><br />
-      Status: <b>{{ character.status }}</b
+      Status: <b>{{ item.status }}</b
       ><br />
     </div>
   </div>
@@ -27,7 +27,7 @@
 <script>
 export default {
   props: {
-    character: { type: Object },
+    item: { type: Object },
   },
 
   data: function () {

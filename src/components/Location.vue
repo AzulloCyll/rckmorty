@@ -1,17 +1,16 @@
 <template>
   <div>
-    <div class="location">{{ location }}</div>
+    <div class="location">{{ item }}</div>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    location: { type: Object },
+    item: { type: Object },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-
 </style>
