@@ -162,6 +162,7 @@ body {
 }
 
 .nav {
+  color: white;
   font-weight: bold;
   display: block;
   width: 100%;
