@@ -146,6 +146,8 @@ $main-color: rgb(19, 207, 119);
 body {
   margin: 0px;
   padding: 0;
+  background-image: url(./assets/bg.jpg);
+  background-attachment: fixed;
 }
 
 .wrapper {
