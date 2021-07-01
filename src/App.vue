@@ -98,7 +98,7 @@ export default {
         })
         //do currentPage
         .then(() => {
-          if (this.currentURL.includes("=")) {
+          if (this.currentURL.includes(" =")) {
             this.currentPage = this.currentURL.split("=");
             this.currentPage = this.currentPage[this.currentPage.length - 1];
             this.currentPage = parseInt(this.currentPage);
